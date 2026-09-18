@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tarifas — Servicios Web</title>
+<meta name="description" content="Tarifas de diseño y desarrollo de páginas web profesionales - Hugo & Francesc, Cambrils.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --paper: #EDF0EE;
+    --paper-raised: #F7F9F7;
+    --ink: #1B2A2E;
+    --ink-soft: #4F6165;
+    --ink-faint: #7C8A8C;
+    --line: #CFD6D2;
+    --accent: #B94E17;
+    --accent-ink: #FBF3EC;
+    --accent-2: #2E6E75;
+    --good: #2E6E75;
+    --bad: #B94E17;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #101A1C;
+      --paper-raised: #172427;
+      --ink: #E9EDE9;
+      --ink-soft: #9FB0AC;
+      --ink-faint: #64777A;
+      --line: #253335;
+      --accent: #E58A52;
+      --accent-ink: #241407;
+      --accent-2: #6BB0B6;
+      --good: #6BB0B6;
+      --bad: #E58A52;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #101A1C;
+    --paper-raised: #172427;
+    --ink: #E9EDE9;
+    --ink-soft: #9FB0AC;
+    --ink-faint: #64777A;
+    --line: #253335;
+    --accent: #E58A52;
+    --accent-ink: #241407;
+    --accent-2: #6BB0B6;
+    --good: #6BB0B6;
+    --bad: #E58A52;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 96px 28px 64px; }
+  @media (max-width: 640px) { .wrap { padding: 64px 20px 48px; } }
+
+  .eyebrow {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12.5px; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent); margin: 0 0 22px;
+  }
+  .eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--accent); display: inline-block; }
+
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13.5px; font-weight: 600; color: var(--accent-2);
+    text-decoration: none; margin-bottom: 40px;
+  }
+  .back svg { width: 13px; height: 13px; transform: rotate(180deg); }
+
+  h1.title {
+    font-family: 'Fraunces', serif; font-optical-sizing: auto; font-weight: 500;
+    font-size: clamp(2.2rem, 5.4vw, 3.2rem); line-height: 1.08; letter-spacing: -0.01em;
+    margin: 0 0 22px; text-wrap: balance; color: var(--ink);
+  }
+  h1.title em { font-style: italic; font-weight: 400; color: var(--accent-2); }
+
+  p.intro { font-size: 1.05rem; color: var(--ink-soft); max-width: 56ch; margin: 0; }
+
+  section { margin-top: 64px; }
+  h2.sec-title {
+    font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.5rem;
+    border-bottom: 1px solid var(--line); padding-bottom: 12px; margin: 0 0 28px;
+  }
+
+  /* Featured price card */
+  .price-card {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    padding: 32px 28px;
+  }
+  .price-card h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.3rem; margin: 0 0 6px; }
+  .price-big {
+    font-family: 'IBM Plex Mono', monospace; font-size: 2.6rem; font-weight: 500;
+    color: var(--accent); line-height: 1; margin: 10px 0 4px;
+  }
+  .price-note { font-size: 12.5px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 22px; }
+  ul.feat { list-style: none; margin: 0 0 20px; padding: 0; }
+  ul.feat li {
+    padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; color: var(--ink-soft);
+  }
+  ul.feat li:last-child { border-bottom: none; }
+  ul.feat li::before { content: "— "; color: var(--accent-2); font-weight: 600; }
+  .delivery {
+    font-size: 13px; color: var(--ink-faint); font-family: 'IBM Plex Mono', monospace;
+    background: var(--paper); border: 1px solid var(--line); padding: 10px 14px; border-radius: 3px; display: inline-block;
+  }
+
+  /* Table */
+  .table-wrap { overflow-x: auto; margin-top: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th {
+    text-align: left; font-family: 'Archivo', sans-serif; font-weight: 600;
+    font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-faint);
+    padding: 10px 14px; border-bottom: 1px solid var(--line-strong, var(--line));
+  }
+  td { padding: 14px; border-bottom: 1px solid var(--line); color: var(--ink-soft); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td strong { color: var(--ink); }
+  .price-col { font-family: 'IBM Plex Mono', monospace; color: var(--accent); font-weight: 600; white-space: nowrap; }
+  .yes { color: var(--good); font-weight: 700; }
+  .no { color: var(--bad); font-weight: 700; }
+
+  .note {
+    font-size: 13.5px; line-height: 1.65; color: var(--ink-soft);
+    background: var(--paper-raised); border: 1px solid var(--line); border-left: 3px solid var(--accent-2);
+    padding: 14px 18px; border-radius: 3px; margin-top: 22px;
+  }
+  .note strong { color: var(--ink); }
+  .note.warn { border-left-color: var(--accent); }
+
+  /* Conditions grid */
+  .cond-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: 8px;
+  }
+  .cond-card {
+    background: var(--paper-raised); border: 1px solid var(--line); border-radius: 4px; padding: 20px;
+  }
+  .cond-card h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.05rem; margin: 0 0 8px; }
+  .cond-card p { font-size: 13.5px; color: var(--ink-soft); margin: 0; }
+
+  /* CTA / footer */
+  .cta {
+    margin-top: 64px; padding: 32px 28px; text-align: center;
+    border: 1px dashed var(--line-strong, var(--ink-faint)); border-radius: 6px;
+  }
+  .cta h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.4rem; margin: 0 0 10px; }
+  .cta p { color: var(--ink-soft); font-size: 14.5px; margin: 0 0 18px; }
+  .contact { font-size: 14px; color: var(--ink); line-height: 1.9; }
+  .contact a { color: var(--accent-2); text-decoration: none; font-weight: 600; }
+
+  footer.page-footer {
+    margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line);
+    font-size: 12.5px; color: var(--ink-faint); text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">Servicios web · Cambrils</p>
+    <h1 class="title">Tarifas <em>claras</em>, sin sorpresas.</h1>
+    <p class="intro">Diseño y desarrollo de páginas web profesionales para tu negocio. Precio fijo, sin letra pequeña.</p>
+  </header>
+
+  <section>
+    <h2 class="sec-title">Servicio principal</h2>
+    <div class="price-card">
+      <h3>Página Web Profesional</h3>
+      <div class="price-big">350€</div>
+      <div class="price-note">Proyecto completo</div>
+      <ul class="feat">
+        <li>Diseño responsive (móvil, tablet, desktop)</li>
+        <li>Las páginas HTML personalizadas que sean necesarias</li>
+        <li>Menú navegable funcionando</li>
+        <li>Sección de contacto</li>
+        <li>Galería de imágenes</li>
+        <li>Optimizado para buscadores (SEO básico)</li>
+        <li>Listo para publicar en internet</li>
+        <li>Revisiones ilimitadas durante desarrollo</li>
+      </ul>
+      <span class="delivery">⏱ Entrega: 7 días laborales</span>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-title">Cambios y actualizaciones</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Tipo de cambio</th><th>Descripción</th><th>Precio</th><th>Tiempo</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Cambio simple</strong></td>
+            <td>Agregar/editar texto, cambiar precios, editar un producto, actualizar imagen</td>
+            <td class="price-col">30€</td>
+            <td>1-2 días</td>
+          </tr>
+          <tr>
+            <td><strong>Cambio moderado</strong></td>
+            <td>Agregar una sección nueva, múltiples imágenes, reorganizar contenido</td>
+            <td class="price-col">60€</td>
+            <td>2-3 días</td>
+          </tr>
+          <tr>
+            <td><strong>Cambio complejo</strong></td>
+            <td>Rediseño de sección, nueva funcionalidad, cambios estructurales</td>
+            <td class="price-col">100€+</td>
+            <td>Presupuesto a consultar</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">📌 <strong>Sistema de cambios:</strong> cada cambio se factura de manera individual. El cliente solicita el cambio, nosotros presupuestamos y realizamos el trabajo.</div>
+  </section>
+
+  <section>
+    <h2 class="sec-title">Qué incluye el precio</h2>
+    <div class="note warn">⚠️ <strong>El precio de 350€ NO incluye dominio personalizado.</strong> Si quieres un dominio propio (ej: minegocio.es), se cobra por separado.</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Elemento</th><th>¿Incluido en 350€?</th><th>Nota</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Página web HTML</strong></td><td class="yes">✓ Sí</td><td>Código profesional, responsive, funcional</td></tr>
+          <tr><td><strong>Hosting en internet</strong></td><td class="yes">✓ Sí</td><td>Alojamiento incluido, listo para publicar</td></tr>
+          <tr><td><strong>Certificado SSL (HTTPS)</strong></td><td class="yes">✓ Sí</td><td>Seguridad automática</td></tr>
+          <tr><td><strong>Dominio personalizado</strong></td><td class="no">✗ No</td><td>El cliente compra el dominio. Se cobra por separado</td></tr>
+          <tr><td><strong>Mantenimiento/soporte recurrente</strong></td><td class="no">✗ No</td><td>La web es tuya para siempre. Cambios posteriores se cobran aparte</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-title">Servicios adicionales (opcionales)</h2>
+    <p class="intro" style="margin-bottom:18px;">Estos servicios se agregan al precio de 350€. Se facturan por separado.</p>
+    <div class="cond-card" style="max-width:420px;">
+      <h3>Dominio personalizado</h3>
+      <p>Configurar y gestionar un dominio propio para tu web (ej: minegocio.es). Precio según proveedor — se cobra por separado.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-title">Condiciones — modelo simple</h2>
+    <div class="cond-grid">
+      <div class="cond-card"><h3>Precio</h3><p>350€ por la página web completa. Precio fijo, sin sorpresas.</p></div>
+      <div class="cond-card"><h3>Pago</h3><p>50% adelanto (175€) al iniciar. 50% al finalizar (175€) cuando recibas la web.</p></div>
+      <div class="cond-card"><h3>Propiedad</h3><p>El código, diseño y archivos son 100% tuyos. Tú eres el propietario absoluto.</p></div>
+      <div class="cond-card"><h3>Entrega</h3><p>Archivos HTML listos para publicar. Te damos las instrucciones de cómo subirlo tú solo.</p></div>
+      <div class="cond-card"><h3>Cambios futuros</h3><p>Si necesitas cambios después de la entrega, los haces tú o nos solicitas presupuesto aparte.</p></div>
+      <div class="cond-card"><h3>Soporte inicial</h3><p>Ayuda gratuita durante 7 días si hay problemas técnicos en la entrega.</p></div>
+    </div>
+  </section>
+
+  <div class="cta">
+    <h3>¿Listo para tu página web?</h3>
+    <p>Contacta para presupuestar tu proyecto. Sin compromiso.</p>
+    <div class="contact">
+      📧 <a href="mailto:hugofran1907@gmail.com">hugofran1907@gmail.com</a><br>
+      📱 Hugo: <a href="tel:+34661012823">661 012 823</a> · Francesc: <a href="tel:+34685401582">685 401 582</a>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    Servicios Web Profesionales · Cambrils, 2026
+  </footer>
+
+</div>
+
+</body>
+</html>
